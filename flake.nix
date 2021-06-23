@@ -1,5 +1,5 @@
 {
-  description = "slugger: Haskell Clean URL Utility";
+  description = "slugger: Clean URI slugs for Haskell";
 
   nixConfig.bash-prompt = "[nix]\\e\[38;5;172mλ \\e\[m";
 
