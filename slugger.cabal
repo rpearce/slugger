@@ -1,0 +1,58 @@
+cabal-version:        2.4
+name:                 slugger
+version:              0.1.0.0
+synopsis:             Clean, valid URI utility
+description:          Clean, valid URI utility
+homepage:             https://github.com/rpearce/slugger
+bug-reports:          https://github.com/rpearce/slugger/issues
+license:              BSD-3-Clause
+license-file:         LICENSE
+author:               Robert W. Pearce
+maintainer:           me@robertwpearce.com
+copyright:            2021 Robert W. Pearce
+category:             Text
+extra-source-files:   CHANGELOG.md
+                    , README.md
+
+common lang
+    default-language: Haskell2010
+
+common deps
+    build-depends:
+        base ^>= 4.13.0.0
+      , text ^>= 1.2
+
+common self-dep
+    build-depends: slugger
+
+common flags
+    ghc-options:
+        -Wall
+        -Wcompat
+        -Werror
+        -Widentities
+        -Wincomplete-record-updates
+        -Wincomplete-uni-patterns
+        -Wpartial-fields
+        -Wredundant-constraints
+        -rtsopts
+        -threaded
+        -with-rtsopts=-N
+
+library
+    import:           lang, deps, flags
+    exposed-modules:  Slugger
+    hs-source-dirs:   lib
+    -- other-modules:
+
+executable slugger
+    import:           lang, deps, self-dep, flags
+    main-is:          Main.hs
+    hs-source-dirs:   app
+    -- other-modules:
+
+test-suite slugger-test
+    import:           lang, deps, self-dep, flags
+    main-is:          SluggerTest.hs
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
