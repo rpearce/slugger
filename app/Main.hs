@@ -1,8 +1,7 @@
 module Main where
 
 
-import qualified Data.Text as T
-import qualified Slugger (toSlug)
+import qualified Slugger (toSlugString)
 import qualified System.Environment as Env
 
 
@@ -15,7 +14,7 @@ help =
 parse :: [String] -> String
 parse ["-h"]     = help
 parse ["--help"] = help
-parse [str]      = T.unpack (Slugger.toSlug (T.pack str))
+parse [str]      = Slugger.toSlugString str
 parse _          = help
 
 

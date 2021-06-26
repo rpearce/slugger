@@ -1,8 +1,8 @@
-cabal-version:        2.4
+cabal-version:        3.0
 name:                 slugger
 version:              0.1.0.0
-synopsis:             Clean, valid URI utility
-description:          Clean, valid URI utility
+synopsis:             Clean URI slugs for Haskell
+description:          Clean URI slugs for Haskell
 homepage:             https://github.com/rpearce/slugger
 bug-reports:          https://github.com/rpearce/slugger/issues
 license:              BSD-3-Clause
@@ -19,7 +19,7 @@ common lang
 
 common deps
     build-depends:
-        base ^>= 4.13.0.0
+        base ^>= 4.13
       , text ^>= 1.2
 
 common self-dep
@@ -35,24 +35,27 @@ common flags
         -Wincomplete-uni-patterns
         -Wpartial-fields
         -Wredundant-constraints
-        -rtsopts
-        -threaded
-        -with-rtsopts=-N
 
 library
-    import:           lang, deps, flags
+    import:           lang, flags, deps
     exposed-modules:  Slugger
     hs-source-dirs:   lib
     -- other-modules:
 
 executable slugger
-    import:           lang, deps, self-dep, flags
+    import:           lang, flags, deps, self-dep
     main-is:          Main.hs
     hs-source-dirs:   app
-    -- other-modules:
+    ghc-options:      -rtsopts
+                      -threaded
+                      -with-rtsopts=-N
 
 test-suite slugger-test
-    import:           lang, deps, self-dep, flags
+    import:           lang, flags, deps, self-dep
     main-is:          SluggerTest.hs
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
+    build-depends:    hspec ^>= 2.8.1
+                    , hspec-contrib ^>= 0.5.1
+                    , QuickCheck ^>= 2.14.2
+                    , HUnit ^>= 1.6.2.0

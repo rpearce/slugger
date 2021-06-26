@@ -1,10 +1,27 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Slugger (toSlug) where
+module Slugger
+    ( toSlugString
+    , toSlugText
+    ) where
+
+
+--------------------------------------------------------------------------------
 
 
 import qualified Data.Char as Char
 import qualified Data.Text as T
+
+
+--------------------------------------------------------------------------------
+
+
+cleanAmpersand :: T.Text -> T.Text
+cleanAmpersand = T.replace "&" "and"
+
+
+cleanSingleQuote :: T.Text -> T.Text
+cleanSingleQuote = T.replace "'" ""
 
 
 keepAlphaNum :: Char -> Char
@@ -13,11 +30,24 @@ keepAlphaNum x
   | otherwise = ' '
 
 
+cleanNonAlphaNum :: T.Text -> T.Text
+cleanNonAlphaNum = T.map keepAlphaNum
+
+
 clean :: T.Text -> T.Text
-clean =
-  T.map keepAlphaNum . T.replace "'" "" . T.replace "&" "and"
+clean = cleanNonAlphaNum . cleanSingleQuote . cleanAmpersand
 
 
-toSlug :: T.Text -> T.Text
-toSlug =
-  T.intercalate (T.singleton '-') . T.words . T.toLower . clean
+hyphenateWords :: T.Text -> T.Text
+hyphenateWords = T.intercalate (T.singleton '-') . T.words
+
+
+--------------------------------------------------------------------------------
+
+
+toSlugText :: T.Text -> T.Text
+toSlugText = hyphenateWords . T.toLower . clean
+
+
+toSlugString :: String -> String
+toSlugString = T.unpack . toSlugText . T.pack
