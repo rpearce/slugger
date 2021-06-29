@@ -10,7 +10,7 @@ license-file:         LICENSE
 author:               Robert W. Pearce
 maintainer:           me@robertwpearce.com
 copyright:            2021 Robert W. Pearce
-category:             Text
+category:             Text, Web
 extra-source-files:   CHANGELOG.md
                     , README.md
 
@@ -21,6 +21,7 @@ common deps
     build-depends:
         base ^>= 4.13
       , text ^>= 1.2
+      , text-icu ^>= 0.7
 
 common self-dep
     build-depends: slugger

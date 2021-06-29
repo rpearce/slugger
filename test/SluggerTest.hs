@@ -35,6 +35,11 @@ main = hspec $ do
                 Slugger.toSlugText (T.pack "HELLO, WORLD!!!") `shouldBe`
                     T.pack "hello-world"
 
+        context "when contractions are used (single quotes)" $ do
+            it "keeps words like can't and don't together" $ do
+                Slugger.toSlugText (T.pack "I can't won't don't want to!")
+                    `shouldBe` T.pack "i-cant-wont-dont-want-to"
+
         context "when leading & trailing whitespace" $ do
             it "does nothing with the extra whitespace" $ do
                 Slugger.toSlugText (T.pack "  Hey world!   ") `shouldBe`
@@ -45,7 +50,23 @@ main = hspec $ do
                 Slugger.toSlugText (T.pack "Hey there,  world!") `shouldBe`
                     T.pack "hey-there-world"
 
-        --context "when invalid URI letters provided" $ do
-        --    it "returns words lowercased and hyphenated" $ do
-        --        Slugger.toSlugText (T.pack "¿Qué pasó?") `shouldBe`
-        --            T.pack "que-paso"
+        context "when non US-ASCII letters provided" $ do
+            it "handles Spanish: ¿Qué pasó? Soy de España" $ do
+                Slugger.toSlugText (T.pack "¿Qué pasó? Soy de España")
+                    `shouldBe` T.pack "que-paso-soy-de-espana"
+
+            it "handles Polish: Żółć, Szczęście, & Następstw" $ do
+                Slugger.toSlugText (T.pack "Żółć, Szczęście, & Następstw")
+                    `shouldBe` T.pack "zolc-szczescie-nastepstw"
+
+            it "handles German: Straße, müde, Äpfel und Ökologie" $ do
+                Slugger.toSlugText (T.pack "Straße, müde, Äpfel und Ökologie")
+                    `shouldBe` T.pack "strasse-mude-apfel-und-okologie"
+
+            --it "handles French: ..." $ do
+            --    Slugger.toSlugText (T.pack "")
+            --        `shouldBe` T.pack ""
+
+            --it "handles Swedish: ..." $ do
+            --    Slugger.toSlugText (T.pack "")
+            --        `shouldBe` T.pack ""

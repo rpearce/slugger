@@ -24,6 +24,13 @@ Get into a nix dev environment:
 
 ```sh
 λ nix develop
+[nix]λ
+```
+
+Run the tests from the shell:
+
+```sh
+[nix]λ cabal test --test-show-details=streaming --test-option=--color
 ```
 
 Run the tests from GHCi:
