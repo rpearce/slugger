@@ -10,7 +10,7 @@ license-file:         LICENSE
 author:               Robert W. Pearce
 maintainer:           me@robertwpearce.com
 copyright:            2021 Robert W. Pearce
-category:             Text, Web
+category:             Data, Text, Web
 extra-source-files:   CHANGELOG.md
                     , README.md
 
@@ -39,9 +39,10 @@ common flags
 
 library
     import:           lang, flags, deps
-    exposed-modules:  Slugger
+    exposed-modules:  Data.String.Slugger
+                      Data.Text.Slugger
     hs-source-dirs:   lib
-    -- other-modules:
+    --other-modules:
 
 executable slugger
     import:           lang, flags, deps, self-dep

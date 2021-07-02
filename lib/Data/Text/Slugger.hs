@@ -1,9 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Slugger
-    ( toSlugString
-    , toSlugText
-    ) where
+module Data.Text.Slugger (toSlug) where
 
 
 --------------------------------------------------------------------------------
@@ -14,12 +11,8 @@ import qualified Data.Text.ICU.Normalize as ICUN
 
 
 --------------------------------------------------------------------------------
-toSlugText :: T.Text -> T.Text
-toSlugText = hyphenateWords . clean . normalize
-
-
-toSlugString :: String -> String
-toSlugString = T.unpack . toSlugText . T.pack
+toSlug :: T.Text -> T.Text
+toSlug = hyphenateWords . clean . normalize
 
 
 --------------------------------------------------------------------------------
@@ -57,5 +50,6 @@ adjustChar x
   | otherwise = " "
 
 
+--------------------------------------------------------------------------------
 hyphenateWords :: T.Text -> T.Text
 hyphenateWords = T.intercalate (T.singleton '-') . T.words
