@@ -40,19 +40,32 @@ isCharModifier = ICUChar.property ICUChar.Diacritic
 
 
 adjustChar :: Char -> T.Text
-adjustChar = adjustChar' . Char.toLower
-  where
-    adjustChar' 'æ' = "ae"
-    adjustChar' 'ð' = "d"
-    adjustChar' 'ƒ' = "f"
-    adjustChar' 'ø' = "o"
-    adjustChar' 'œ' = "oe"
-    adjustChar' 'ł' = "l"
-    adjustChar' 'ß' = "ss"
-    adjustChar' 'þ' = "th"
-    adjustChar' x
-        | Char.isAscii x && Char.isAlphaNum x = T.singleton x
-        | otherwise = " "
+adjustChar 'æ' = "ae"
+adjustChar 'Æ' = "ae"
+adjustChar 'ð' = "d"
+adjustChar 'Ð' = "d"
+adjustChar 'ƒ' = "f"
+adjustChar 'Ƒ' = "f"
+adjustChar 'ø' = "o"
+adjustChar 'Ø' = "o"
+adjustChar 'œ' = "oe"
+adjustChar 'Œ' = "oe"
+adjustChar 'ł' = "l"
+adjustChar 'Ł' = "l"
+adjustChar 'ß' = "ss"
+adjustChar 'þ' = "th"
+adjustChar 'Þ' = "th"
+adjustChar x
+  | isAsciiAlphaNum x = toLowerAsText x
+  | otherwise = " "
+
+
+isAsciiAlphaNum :: Char -> Bool
+isAsciiAlphaNum x = Char.isAscii x && Char.isAlphaNum x
+
+
+toLowerAsText :: Char -> T.Text
+toLowerAsText = T.singleton . Char.toLower
 
 
 --------------------------------------------------------------------------------
