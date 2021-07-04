@@ -75,10 +75,6 @@ main = hspec $ do
                 SluggerText.toSlug (T.pack "(Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við")
                     `shouldBe` T.pack "eg-er-kominn-aftur-a-ny-inn-i-thig-thad-er-svo-gott-ad-vera-her-en-stoppa-stutt-vid"
 
-            --it "handles a bunch we left out: " $ do
-            --    SluggerText.toSlug (T.pack "Σωκράτης")
-            --        `shouldBe` T.pack "sokrates"
-
-            --it "handles a bunch we left out: " $ do
-            --    SluggerText.toSlug (T.pack "")
-            --        `shouldBe` T.pack ""
+            it "handles a bunch we left out: æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ" $ do
+                SluggerText.toSlug (T.pack "æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ")
+                    `shouldBe` T.pack "ae-ae-d-d-f-f-o-o-oe-oe-l-l-ss-th-th"
