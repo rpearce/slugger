@@ -63,10 +63,22 @@ main = hspec $ do
                 SluggerText.toSlug (T.pack "Straße, müde, Äpfel und Ökologie")
                     `shouldBe` T.pack "strasse-mude-apfel-und-okologie"
 
-            --it "handles French: ..." $ do
-            --    SluggerText.toSlug (T.pack "")
-            --        `shouldBe` T.pack ""
+            it "handles French: GARÇON - déjà , Forêt — Zoë" $ do
+                SluggerText.toSlug (T.pack "GARÇON - déjà , Forêt — Zoë")
+                    `shouldBe` T.pack "garcon-deja-foret-zoe"
 
-            --it "handles Swedish: ..." $ do
+            it "handles Swedish: Varsågod ++ tack så mycket -- ölet" $ do
+                SluggerText.toSlug (T.pack "Varsågod ++ tack så mycket -- ölet")
+                    `shouldBe` T.pack "varsagod-tack-sa-mycket-olet"
+
+            it "handles Icelandic: (Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við" $ do
+                SluggerText.toSlug (T.pack "(Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við")
+                    `shouldBe` T.pack "eg-er-kominn-aftur-a-ny-inn-i-thig-thad-er-svo-gott-ad-vera-her-en-stoppa-stutt-vid"
+
+            --it "handles a bunch we left out: " $ do
+            --    SluggerText.toSlug (T.pack "Σωκράτης")
+            --        `shouldBe` T.pack "sokrates"
+
+            --it "handles a bunch we left out: " $ do
             --    SluggerText.toSlug (T.pack "")
             --        `shouldBe` T.pack ""

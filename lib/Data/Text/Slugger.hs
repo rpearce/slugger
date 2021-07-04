@@ -17,7 +17,7 @@ toSlug = hyphenateWords . clean . normalize
 
 --------------------------------------------------------------------------------
 normalize :: T.Text -> T.Text
-normalize = ICUN.normalize ICUN.NFD
+normalize = ICUN.normalize ICUN.NFKD
 
 
 --------------------------------------------------------------------------------
@@ -40,13 +40,23 @@ isCharModifier = ICUChar.property ICUChar.Diacritic
 
 
 adjustChar :: Char -> T.Text
+adjustChar 'æ' = "ae"
+adjustChar 'Æ' = "ae"
+adjustChar 'ð' = "d"
+adjustChar 'Ð' = "d"
+adjustChar 'ƒ' = "f"
+adjustChar 'Ƒ' = "f"
 adjustChar 'ø' = "o"
 adjustChar 'Ø' = "o"
+adjustChar 'œ' = "oe"
+adjustChar 'Œ' = "oe"
 adjustChar 'ł' = "l"
 adjustChar 'Ł' = "l"
 adjustChar 'ß' = "ss"
+adjustChar 'þ' = "th"
+adjustChar 'Þ' = "th"
 adjustChar x
-  | Char.isAlphaNum x = T.singleton (Char.toLower x)
+  | Char.isAlphaNum x && Char.isAscii x = T.singleton (Char.toLower x)
   | otherwise = " "
 
 
