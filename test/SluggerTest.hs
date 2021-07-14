@@ -76,7 +76,11 @@ main = hspec $ do
                     `shouldBe` T.pack "eg-er-kominn-aftur-a-ny-inn-i-thig-thad-er-svo-gott-ad-vera-her-en-stoppa-stutt-vid"
 
             it "handles Turkish: Pijamalı hasta yağız şoföre çabucak güvendi" $ do
-                SluggerText.toSlug (T.pack "Pijamalı hasta yağız şoföre çabucak güvendi.")
+                SluggerText.toSlug (T.pack "Pijamalı hasta yağız şoföre çabucak güvendi")
+                    `shouldBe` T.pack "pijamali-hasta-yagiz-sofore-cabucak-guvendi"
+
+            it "handles Turkish (uppercase): PİJAMALI HASTA YAĞIZ ŞOFÖRE ÇABUCAK GÜVENDİ" $ do
+                SluggerText.toSlug (T.pack "PİJAMALI HASTA YAĞIZ ŞOFÖRE ÇABUCAK GÜVENDİ")
                     `shouldBe` T.pack "pijamali-hasta-yagiz-sofore-cabucak-guvendi"
 
             it "handles a bunch we left out: æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ" $ do
