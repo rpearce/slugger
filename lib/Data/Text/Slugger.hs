@@ -55,6 +55,8 @@ adjustChar 'Ł' = "l"
 adjustChar 'ß' = "ss"
 adjustChar 'þ' = "th"
 adjustChar 'Þ' = "th"
+adjustChar 'ı' = "i"
+-- See Note [Turkish I]
 adjustChar x
   | isAsciiAlphaNum x = toLowerAsText x
   | otherwise = " "
@@ -71,3 +73,24 @@ toLowerAsText = T.singleton . Char.toLower
 --------------------------------------------------------------------------------
 hyphenateWords :: T.Text -> T.Text
 hyphenateWords = T.intercalate (T.singleton '-') . T.words
+
+{-
+Note: [Turkish I]
+
+Turkish has an unusual casing of the letter 'I'. In Turkish, we have
+'i' and 'ı', two separate letters. They correspond to uppercase 'İ'
+and 'I'. Notice that this is the opposite of most other languages,
+where lowercase 'i' correspond to uppercase 'I' (losing the dot for no
+good reason).
+
+Unicode gets this correctly, so a Unicode-aware `toLower` function would
+convert uppercase 'I' to 'ı' when on Turkish locale. This tend to break
+functions like the one we are writing, if we incorrectly assume that every
+ASCII uppercase letter would correspond to an ASCII lowercase letter.
+
+The surprise is that; `Data.Char.toLower` function we use is not
+locale-aware, `Data.Text.ICU.toLower` is. Only because of this fact `I`
+becomes `i` even on Turkish locale on this function. This note is here
+so that we do not start using `Data.Text.ICU.toLower` and break the
+library on Turkish locale.
+-}
