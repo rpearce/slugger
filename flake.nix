@@ -28,10 +28,6 @@
             myHaskellPackages = prev.haskell.packages.${compiler}.override {
               overrides = hpFinal: hpPrev: {
                 slugger = hpPrev.callCabal2nix "slugger" ./. {};
-
-                hspec = hpPrev.callHackage "hspec" "2.8.1" {}; # see slugger.cabal build-depends
-                hspec-core = hpPrev.callHackage "hspec-core" "2.8.1" {}; # because hspec
-                hspec-discover = hpPrev.callHackage "hspec-discover" "2.8.1" {}; # because hspec
               };
             };
           })

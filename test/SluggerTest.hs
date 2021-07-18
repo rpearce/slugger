@@ -1,8 +1,6 @@
 module Main (main) where
 
 import Test.Hspec
---import Test.QuickCheck
---import Control.Exception (evaluate)
 import qualified Data.Text as T
 import qualified Data.String.Slugger as SluggerString
 import qualified Data.Text.Slugger as SluggerText
