@@ -7,8 +7,9 @@ import qualified System.Environment as Env
 
 help :: String
 help =
+    "slugger: Clean URI slugs\n" ++
     "usage: slugger \"<text>\"\n" ++
-        "  -h, --help   Read this help info\n"
+    "  -h, --help   Read this help info\n"
 
 
 parse :: [String] -> String

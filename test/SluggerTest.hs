@@ -49,29 +49,33 @@ main = hspec $ do
                     T.pack "hey-there-world"
 
         context "when non US-ASCII letters provided" $ do
-            it "handles Spanish: ¿Qué pasó? Soy de España" $ do
-                SluggerText.toSlug (T.pack "¿Qué pasó? Soy de España")
-                    `shouldBe` T.pack "que-paso-soy-de-espana"
-
-            it "handles Polish: Żółć, Szczęście, & Następstw" $ do
-                SluggerText.toSlug (T.pack "Żółć, Szczęście, & Następstw")
-                    `shouldBe` T.pack "zolc-szczescie-nastepstw"
-
-            it "handles German: Straße, müde, Äpfel und Ökologie" $ do
-                SluggerText.toSlug (T.pack "Straße, müde, Äpfel und Ökologie")
-                    `shouldBe` T.pack "strasse-mude-apfel-und-okologie"
+            it "handles Danish: Være så venlig... Øl" $ do
+                SluggerText.toSlug (T.pack "Være så venlig... Øl")
+                    `shouldBe` T.pack "vaere-sa-venlig-ol"
 
             it "handles French: GARÇON - déjà , Forêt — Zoë" $ do
                 SluggerText.toSlug (T.pack "GARÇON - déjà , Forêt — Zoë")
                     `shouldBe` T.pack "garcon-deja-foret-zoe"
 
-            it "handles Swedish: Varsågod ++ tack så mycket -- ölet" $ do
-                SluggerText.toSlug (T.pack "Varsågod ++ tack så mycket -- ölet")
-                    `shouldBe` T.pack "varsagod-tack-sa-mycket-olet"
+            it "handles German: Straße, müde, Äpfel und Ökologie" $ do
+                SluggerText.toSlug (T.pack "Straße, müde, Äpfel und Ökologie")
+                    `shouldBe` T.pack "strasse-mude-apfel-und-okologie"
 
             it "handles Icelandic: (Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við" $ do
                 SluggerText.toSlug (T.pack "(Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við")
                     `shouldBe` T.pack "eg-er-kominn-aftur-a-ny-inn-i-thig-thad-er-svo-gott-ad-vera-her-en-stoppa-stutt-vid"
+
+            it "handles Polish: Żółć, Szczęście, & Następstw" $ do
+                SluggerText.toSlug (T.pack "Żółć, Szczęście, & Następstw")
+                    `shouldBe` T.pack "zolc-szczescie-nastepstw"
+
+            it "handles Spanish: ¿Qué pasó? Soy de España" $ do
+                SluggerText.toSlug (T.pack "¿Qué pasó? Soy de España")
+                    `shouldBe` T.pack "que-paso-soy-de-espana"
+
+            it "handles Swedish: Varsågod ++ tack så mycket -- ölet" $ do
+                SluggerText.toSlug (T.pack "Varsågod ++ tack så mycket -- ölet")
+                    `shouldBe` T.pack "varsagod-tack-sa-mycket-olet"
 
             it "handles Turkish: Pijamalı hasta yağız şoföre çabucak güvendi" $ do
                 SluggerText.toSlug (T.pack "Pijamalı hasta yağız şoföre çabucak güvendi")
@@ -81,6 +85,6 @@ main = hspec $ do
                 SluggerText.toSlug (T.pack "PİJAMALI HASTA YAĞIZ ŞOFÖRE ÇABUCAK GÜVENDİ")
                     `shouldBe` T.pack "pijamali-hasta-yagiz-sofore-cabucak-guvendi"
 
-            it "handles a bunch we left out: æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ" $ do
+            it "handles a bunch we may have left out: æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ" $ do
                 SluggerText.toSlug (T.pack "æ Æ ð Ð ƒ Ƒ ø Ø œ Œ ł Ł ß þ Þ")
                     `shouldBe` T.pack "ae-ae-d-d-f-f-o-o-oe-oe-l-l-ss-th-th"
