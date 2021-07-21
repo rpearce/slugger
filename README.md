@@ -66,11 +66,24 @@ additional languages.
 
 ## Development
 
+Try the project executable via a nix flake app:
+
+```sh
+λ nix run . "Testing 1,2,3"
+testing-1-2-3
+```
+
 Get into a nix dev environment:
 
 ```sh
 λ nix develop
 [nix]λ
+```
+
+Build the project:
+
+```sh
+[nix]λ nix build
 ```
 
 Run the tests from the shell:
