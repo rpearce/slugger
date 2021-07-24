@@ -11,6 +11,18 @@ import qualified Data.Text.ICU.Normalize as ICUN
 
 
 --------------------------------------------------------------------------------
+{- | Converts to a US-ASCII, lowercase, hyphenated, URI-friendly "slug"
+
+__Examples:__
+
+@
+toSlug (T.pack "Hey there,   world!")
+-- "hey-there-world"
+
+toSlug (T.pack "GARÇON - déjà , Forêt — Zoë")
+-- "garcon-deja-foret-zoe"
+@
+-}
 toSlug :: T.Text -> T.Text
 toSlug = hyphenateWords . clean . normalize
 
