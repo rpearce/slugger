@@ -35,7 +35,14 @@
 
         pkgs = import nixpkgs { inherit config overlays system; };
       in rec {
-        packages = with pkgs.myHaskellPackages; [ slugger ];
+        defaultPackage = packages.slugger;
+        defaultApp = apps.slugger;
+
+        packages = with pkgs.myHaskellPackages; { inherit slugger; };
+
+        apps.slugger = flake-utils.lib.mkApp {
+          drv = packages.slugger;
+        };
 
         devShell = pkgs.myHaskellPackages.shellFor {
           packages = p: [
@@ -47,7 +54,7 @@
 
             cabal-install
             hlint                        # https://github.com/ndmitchell/hlint
-            ormolu                       # https://github.com/tweag/ormolu
+            #ormolu                       # https://github.com/tweag/ormolu
             pkgs.haskell-language-server # https://github.com/haskell/haskell-language-server
           ];
 
@@ -56,49 +63,3 @@
       }
     );
 }
-
-
-#{
-#  description = "slugger: Clean URI slugs for Haskell";
-
-#  nixConfig.bash-prompt = "[nix]\\e\[38;5;172mλ \\e\[m";
-
-#  inputs = {
-#    haskellNix.url = "github:input-output-hk/haskell.nix";
-
-#    nixpkgs.follows = "haskellNix/nixpkgs-unstable";
-
-#    flake-utils = {
-#      url = "github:numtide/flake-utils";
-#      inputs.nixpkgs.follows = "haskellNix/nixpkgs-unstable";
-#    };
-#  };
-
-#  outputs = { flake-utils, haskellNix, nixpkgs, self }:
-#    flake-utils.lib.eachDefaultSystem (system:
-#      let
-#        projectOverlay = (final: prev: {
-#          haskell-language-server = prev.haskell-language-server.override {
-#            supportedGhcVersions = [ "884" ];
-#          };
-
-#          sluggerProject = prev.haskell-nix.project' {
-#            src = ./.;
-#            compiler-nix-name = "ghc884";
-
-#            shell.tools = {
-#              cabal = {};
-#              hlint = {};
-#              haskell-language-server = {};
-#            };
-#          };
-#        });
-
-#        config = {};
-#        overlays = [ haskellNix.overlay projectOverlay ];
-#        pkgs = import nixpkgs { inherit config overlays system; };
-#        flake = pkgs.sluggerProject.flake {};
-#      in flake // {
-#      }
-#    );
-#}
