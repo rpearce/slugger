@@ -46,6 +46,9 @@ SluggerText.toSlug (T.pack "GARÇON - déjà , Forêt — Zoë")
 ```sh
 λ slugger "Hey there,   world!"
 hey-there-world
+
+λ slugger "Pijamalı hasta yağız şoföre çabucak güvendi"
+pijamali-hasta-yagiz-sofore-cabucak-guvendi
 ```
 
 ## Language Support
