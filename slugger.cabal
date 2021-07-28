@@ -18,8 +18,13 @@ source-repository head
   type:     git
   location: git://github.com/rpearce/slugger.git
 
+flag ci
+  description: Use CI settings
+  default:     False
+  manual:      True
+
 flag dev
-  description: Turn on development settings
+  description: Use development settings
   default:     False
   manual:      True
 
@@ -36,14 +41,20 @@ common self-dep
     build-depends: slugger
 
 common flags
-    ghc-options:
-        -Wall
-        -Wcompat
-        -Widentities
-        -Wincomplete-record-updates
-        -Wincomplete-uni-patterns
-        -Wpartial-fields
-        -Wredundant-constraints
+    if flag(ci)
+        ghc-options:
+            -Wall
+            -fwarn-incomplete-record-updates
+            -fwarn-incomplete-uni-patterns
+    else
+        ghc-options:
+            -Wall
+            -Wcompat
+            -Widentities
+            -Wincomplete-record-updates
+            -Wincomplete-uni-patterns
+            -Wpartial-fields
+            -Wredundant-constraints
 
     if flag(dev)
         ghc-options:
