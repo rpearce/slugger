@@ -1,6 +1,6 @@
 cabal-version:        3.0
 name:                 slugger
-version:              0.1.0.0
+version:              0.1.0.1
 synopsis:             Clean URI slugs for Haskell
 description:          Convert multi-language text to a US-ASCII, lowercase, hyphenated, URI-friendly "slug"
 homepage:             https://github.com/rpearce/slugger
@@ -36,9 +36,6 @@ common self-dep
     build-depends: slugger
 
 common flags
-    ghc-options:
-        -Wall
-
     if flag(dev)
         ghc-options:
             -Wall
@@ -49,6 +46,9 @@ common flags
             -Wincomplete-uni-patterns
             -Wpartial-fields
             -Wredundant-constraints
+    else
+        ghc-options:
+            -Wall
 
 library
     import:           lang, flags, deps
