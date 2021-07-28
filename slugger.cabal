@@ -18,8 +18,8 @@ source-repository head
   type:     git
   location: git://github.com/rpearce/slugger.git
 
-flag devOpts
-  description: Include development options
+flag dev
+  description: Turn on development settings
   default:     False
   manual:      True
 
@@ -45,7 +45,7 @@ common flags
         -Wpartial-fields
         -Wredundant-constraints
 
-    if flag(devOpts)
+    if flag(dev)
         ghc-options:
             -Werror
 
