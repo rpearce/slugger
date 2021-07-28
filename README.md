@@ -6,10 +6,6 @@ Convert multi-language text to a US-ASCII, lowercase, hyphenated, URI-friendly "
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-## Installation
-
-WIP
-
 ## Usage
 
 ### Library
