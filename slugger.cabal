@@ -2,7 +2,7 @@ cabal-version:        3.0
 name:                 slugger
 version:              0.1.0.0
 synopsis:             Clean URI slugs for Haskell
-description:          View README.md
+description:          Convert multi-language text to a US-ASCII, lowercase, hyphenated, URI-friendly "slug"
 homepage:             https://github.com/rpearce/slugger
 bug-reports:          https://github.com/rpearce/slugger/issues
 license:              BSD-3-Clause
@@ -13,6 +13,15 @@ copyright:            2021 Robert W. Pearce
 category:             Data, Text, Web
 extra-source-files:   CHANGELOG.md
                     , README.md
+
+source-repository head
+  type:     git
+  location: git://github.com/rpearce/slugger.git
+
+flag devOpts
+  description: Include development options
+  default:     False
+  manual:      True
 
 common lang
     default-language: Haskell2010
@@ -30,12 +39,15 @@ common flags
     ghc-options:
         -Wall
         -Wcompat
-        -Werror
         -Widentities
         -Wincomplete-record-updates
         -Wincomplete-uni-patterns
         -Wpartial-fields
         -Wredundant-constraints
+
+    if flag(devOpts)
+        ghc-options:
+            -Werror
 
 library
     import:           lang, flags, deps

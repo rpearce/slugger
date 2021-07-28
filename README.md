@@ -2,6 +2,8 @@
 
 Clean URI slugs for Haskell
 
+Convert multi-language text to a US-ASCII, lowercase, hyphenated, URI-friendly "slug".
+
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
 ## Installation
