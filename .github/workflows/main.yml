@@ -2,12 +2,12 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
+    #branches:
+    #  - master
   pull_request:
-    types:
-      - opened
-      - synchronize
+    #types:
+    #  - opened
+    #  - synchronize
 
 jobs:
   build-nix:
