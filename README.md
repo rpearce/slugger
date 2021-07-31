@@ -55,15 +55,17 @@ These are the languages that are currently tested and therefore marked as
 supported. Contributions are welcome for more extensive tests or tests for
 additional languages.
 
-- [x] Dansk     (Danish)
-- [x] Deutsche  (German)
-- [x] English
-- [x] Español   (Spanish)
-- [x] Français  (French)
-- [x] Íslenskur (Icelandic)
-- [x] Polskie   (Polish)
-- [x] Svenska   (Swedish)
-- [x] Türk      (Turkish)
+* Dansk    (Danish)
+* Deutsch  (German)
+* English
+* Español  (Spanish)
+* Français (French)
+* Íslenska (Icelandic)
+* Italiano (Italian)
+* Polski   (Polish)
+* Suomi    (Finnish)
+* Svenska  (Swedish)
+* Türkçe   (Turkish)
 
 ## Development
 

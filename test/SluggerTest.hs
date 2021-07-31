@@ -57,6 +57,10 @@ main = hspec $ do
                 SluggerText.toSlug (T.pack "GARÇON - déjà , Forêt — Zoë")
                     `shouldBe` T.pack "garcon-deja-foret-zoe"
 
+            it "handles Finnish: Saisinko leipää? Šakki. Džonkki" $ do
+                SluggerText.toSlug (T.pack "Saisinko leipää? Šakki. Džonkki")
+                    `shouldBe` T.pack "saisinko-leipaa-sakki-dzonkki"
+
             it "handles German: Straße, müde, Äpfel und Ökologie" $ do
                 SluggerText.toSlug (T.pack "Straße, müde, Äpfel und Ökologie")
                     `shouldBe` T.pack "strasse-mude-apfel-und-okologie"
@@ -64,6 +68,10 @@ main = hspec $ do
             it "handles Icelandic: (Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við" $ do
                 SluggerText.toSlug (T.pack "(Ég) er kominn aftur (á ný) Inn í þig (Það er) svo gott að vera (hér) En stoppa stutt við")
                     `shouldBe` T.pack "eg-er-kominn-aftur-a-ny-inn-i-thig-thad-er-svo-gott-ad-vera-her-en-stoppa-stutt-vid"
+
+            it "handles Italian: Non c’è di che." $ do
+                SluggerText.toSlug (T.pack "Non c’è di che.")
+                    `shouldBe` T.pack "non-c-e-di-che"
 
             it "handles Polish: Żółć, Szczęście, & Następstw" $ do
                 SluggerText.toSlug (T.pack "Żółć, Szczęście, & Następstw")
