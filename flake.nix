@@ -1,64 +1,63 @@
 {
   description = "slugger: Clean URI slugs for Haskell";
 
-  nixConfig.bash-prompt = "[nix]λ ";
-
-  inputs = {
-    nixpkgs.url = "nixpkgs/nixos-21.05";
-
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+  nixConfig = {
+    allow-import-from-derivation = "true";
+    bash-prompt = "[nix]λ ";
+    extra-substituters = [
+      "https://cache.iog.io"
+      "https://cache.zw3rk.com" # https://github.com/input-output-hk/haskell.nix/issues/1408
+    ];
+    extra-trusted-public-keys = [
+      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+      "loony-tools:pr9m4BkM/5/eSTZlkQyRt57Jz7OMBxNSUiMC4FkcNfk="
+    ];
   };
 
-  outputs = { flake-utils, nixpkgs, self }:
+  inputs.haskellNix.url = "github:input-output-hk/haskell.nix";
+  inputs.nixpkgs.follows = "haskellNix/nixpkgs-unstable";
+  inputs.flake-utils.url = "github:numtide/flake-utils";
+
+  outputs = { self, nixpkgs, flake-utils, haskellNix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        config = {};
-
-        compilerVersion = "884";
-        compiler = "ghc" + compilerVersion;
-        overlays = [
+        overlays = [ haskellNix.overlay
           (final: prev: {
-            haskell-language-server = prev.haskell-language-server.override {
-              supportedGhcVersions = [ compilerVersion ];
-            };
-
-            myHaskellPackages = prev.haskell.packages.${compiler}.override {
-              overrides = hpFinal: hpPrev: {
-                slugger = hpPrev.callCabal2nix "slugger" ./. {};
-              };
+            sluggerProject = final.haskell-nix.project' {
+              src = ./.;
+              compiler-nix-name = "ghc925";
+              shell.buildInputs = [
+                slugger-cli
+              ];
+              #shell.tools = {
+              #  cabal = "latest";
+              #  hlint = "latest";
+              #  haskell-language-server = "latest";
+              #};
             };
           })
         ];
 
-        pkgs = import nixpkgs { inherit config overlays system; };
-      in rec {
-        defaultPackage = packages.slugger;
-        defaultApp = apps.slugger;
-
-        packages = with pkgs.myHaskellPackages; { inherit slugger; };
-
-        apps.slugger = flake-utils.lib.mkApp {
-          drv = packages.slugger;
+        pkgs = import nixpkgs {
+          inherit overlays system;
+          inherit (haskellNix) config;
         };
 
-        devShell = pkgs.myHaskellPackages.shellFor {
-          packages = p: [
-            p.slugger
-          ];
+        flake = pkgs.sluggerProject.flake {};
 
-          buildInputs = with pkgs.myHaskellPackages; [
-            slugger
+        executable = "slugger:exe:slugger";
 
-            cabal-install
-            hlint                        # https://github.com/ndmitchell/hlint
-            #ormolu                       # https://github.com/tweag/ormolu
-            pkgs.haskell-language-server # https://github.com/haskell/haskell-language-server
-          ];
+        slugger-cli = flake.packages.${executable};
 
-          withHoogle = true;
+      in flake // rec {
+        apps = {
+          default = flake-utils.lib.mkApp {
+            drv = slugger-cli;
+          };
+        };
+
+        packages = {
+          default = slugger-cli;
         };
       }
     );
