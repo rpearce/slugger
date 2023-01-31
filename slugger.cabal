@@ -29,8 +29,8 @@ common lang
 common deps
     build-depends:
         base     >= 4.8 && < 5
-      , text     >= 1   && < 1.3
-      , text-icu >= 0.7 && < 0.8
+      , text     >= 1   && < 3
+      , text-icu >= 0.7 && < 0.9
 
 common self-dep
     build-depends: slugger
